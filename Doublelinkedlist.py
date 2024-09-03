@@ -52,22 +52,25 @@ class DoubleLinkedList:
             new_node.prev = current
             current.next.prev = new_node
             current.next = new_node
-    def deleteNode(self,data):
+    def delete_node(self,data):
         if self.head is None:
             return 
-        else:
-            if self.head.data == data:
-                self.head = self.head.next
+        current_node = self.head
+        while current_node.data !=data:
+            current_node = current_node.next
+        if current_node is None:
+            print(f"No node is there")
+            return 
+        if current_node == self.head: # Case 1: Node to be deleted is the head node
+            self.head= self.head.next
+            if self.head is not None:
                 self.head.prev = None
-                return 
-            current_node =self.head
-            while current_node:
-                if current_node.data == data:
-                    if current_node.next:
-                        current_node.next.prev = current_node.prev
-                    if current_node.prev:
-                        current_node.prev.next = current_node.next
-                current_node =current_node.next
+        elif current_node.next is None:# Case 2: Node to be deleted is the tail node
+            current_node.prev.next = None
+        else:# Case 3: Node to be deleted is in the middle
+            current_node.next.prev = current_node.prev
+            current_node.prev.next = current_node.next
+
             
             
     def printReverseList(self):
