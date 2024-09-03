@@ -36,27 +36,26 @@ class DoubleCircularLinkedlist:
            new_node.next = self.head
            self.head.prev = new_node
     
-    def delete_node(self, data):
+    def delete_node(self,data):
             if self.head is None:
-                return
+                return 
             current_node = self.head
-            while True:
-                if current_node.data == data:
-                    if current_node == self.head:
-                        if self.head.next == self.head:  # Only one element
-                            self.head = None
-                        else:
-                            tail = self.head.prev
-                            self.head = self.head.next
-                            self.head.prev = tail
-                            tail.next = self.head
-                    else:
-                        current_node.prev.next = current_node.next
-                        current_node.next.prev = current_node.prev
-                    return
+            while current_node.data !=data:
                 current_node = current_node.next
-                if current_node == self.head:
-                    break
+                if current_node ==self.head:
+                    print(f"Node with data {data} not found")
+                    return 
+                    
+            if current_node.next == current_node:  # case 1 : only one node 
+                self.head = None
+            elif current_node == self.head:  # case 2 : deleting the head node
+                last = self.head.prev 
+                last.next = self.head.next
+                self.head = self.head.next
+                self.head.prev = last 
+            else: #case 3 deleting other node
+                current_node.prev.next = current_node.next
+                current_node.next.prev = current_node.prev
     
                     
                     
